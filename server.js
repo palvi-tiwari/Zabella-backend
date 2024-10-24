@@ -1,4 +1,4 @@
-require('dotenv').config();
+require("dotenv").config();
 const express = require("express");
 const axios = require("axios");
 const bodyParser = require("body-parser");
@@ -13,14 +13,13 @@ const clientId = process.env.CLIENT_ID;
 const clientSecret = process.env.CLIENT_SECRET_KEY;
 const refreshToken = process.env.REFRESH_TOKEN;
 
-console.log(refreshToken,"refreshToken")
 // Middleware
 app.use(cors());
 app.use(bodyParser.json());
 
 // Define the POST route to handle lead submission
 app.post("/api/submit-lead", async (req, res) => {
-  const { name, phone } = req.body;
+  const { name, email, phone } = req.body;
 
   // Prepare data to send to Zoho CRM
   const leadData = {
@@ -28,6 +27,7 @@ app.post("/api/submit-lead", async (req, res) => {
       {
         Last_Name: name,
         Phone: phone,
+        Email: email,
       },
     ],
   };
